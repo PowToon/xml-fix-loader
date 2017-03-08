@@ -5,8 +5,6 @@ var expect = require('expect.js')
 var webpack = require('webpack')
 var rimraf = require('rimraf')
 
-var xmlFixLoader = require('../index')
-
 describe('xml-fix-loader', function () {
   'use strict'
 
@@ -26,16 +24,16 @@ describe('xml-fix-loader', function () {
           filename: bundleFileName
         },
         resolve: {
-          extensions: ['.js', 'svg'],
+          extensions: ['.js', '.svg'],
           modules: ['node_modules']
         },
         module: {
           rules: [
             {
-              test: /\.svg/,
+              test: /\.svg$/,
               use: [
                 { loader: 'file-loader' },
-                xmlFixLoader
+                { loader: '.' }
               ]
             }
           ]

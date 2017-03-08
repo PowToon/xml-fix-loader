@@ -28,10 +28,14 @@
   "devDependencies": {
     "codecov": "~1.0.1",
     "expect.js": "~0.3.1",
+    "file-loader": "^0.10.1",
     "istanbul": "~0.4.5",
     "mocha": "~3.2.0",
     "object-assign": "~4.1.0",
     "rimraf": "^2.6.1",
     "webpack": "~2.2.1"
+  },
+  "dependencies": {
+    "xml2js": "^0.4.17"
   }
 }

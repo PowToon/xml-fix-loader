@@ -1,5 +1,5 @@
-var scss = require('./styles/background')
+var svg = require('./svg.svg')
 
 module.exports = {
-  scss: scss
+  svg: svg
 }
