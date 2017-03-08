@@ -14,6 +14,10 @@ describe('xml-fix-loader', function () {
   var bundleFileName = 'bundle.js'
   var bundleFileSrc = path.join(outputDir, bundleFileName)
 
+  beforeEach(function (done) {
+    rimraf(outputDir, done)
+  })
+
   describe('simple usage', function () {
     it('should fix a svg without attribute quotes', function (done) {
       var config = {
