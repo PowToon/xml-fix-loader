@@ -21,10 +21,22 @@ The plugin uses [xml2js](https://www.npmjs.com/package/xml2js) to parse and stri
       options: {
       
         //this will be pased to "xml2js.parseString(parse || defaultParseString)"
-        parse: {trim: false},
+        parse: defaultParseOptions,
         
         // this will be passed to "new xml2js.Builder(stringify || defaultStringifyOptions)"
-        stringify: {explicitRoot: false}
+        stringify: defaultStringifyOptions
+        
+        // filter resources based on their resourcename
+        filterResource: defaultFilter
+        
+        // filter resources based on their resourcename
+        filterContent: defaultFilter
+        
+        // filter resources based on their resourcename
+        filterParsedContent: defaultFilter
+        
+        // filter resources based on their resourcename
+        changeXmlObj: identity
         
       }
     }
@@ -32,22 +44,29 @@ The plugin uses [xml2js](https://www.npmjs.com/package/xml2js) to parse and stri
 }
 ```
 
-default `xml2js.parseString`'s options are:
+With the following settings:
 
 ```
+function defaultFilter(){
+  return true
+}
+
+function identity(xmlObj){
+  return xmlObj
+}
+
 function toLowerCase(value){
   return value && value.toLocaleLowerCase()
 }
 
-var defaultConfig = {
+var defaultParseOptions = {
   tagNameProcessors: [toLowerCase],
   attrNameProcessors: [toLowerCase],
   preserveChildrenOrder: true,
   trim: true,
   async: true,
-  // we really suggest not changing this one, since its accountable for fixing the svg:
-  strict: false 
+  strict: false
 }
-```
 
-default `xml2js.Builder`'s options are: `{}`
+var defaultStringifyOptions = {}
+```
