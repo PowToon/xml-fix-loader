@@ -1,6 +1,6 @@
 {
   "name": "xml-fix-loader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A webpack loader canonizing xml files",
   "main": "index.js",
   "scripts": {
