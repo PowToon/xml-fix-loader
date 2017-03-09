@@ -17,7 +17,6 @@ var defaultParseOptions = {
 var defaultStringifyOptions = {}
 
 module.exports = function(content) {
-  this.cacheable(false)
   var callback = this.async()
 
   var options = loaderUtils.getOptions(this) || {}
