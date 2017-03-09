@@ -20,7 +20,7 @@ module.exports = function(content) {
   this.cacheable(false)
   var callback = this.async()
 
-  var options = loaderUtils.getOptions(this)
+  var options = loaderUtils.getOptions(this) || {}
   var parseOptions = options.parse || defaultParseOptions
   var stringifyOptions = options.stringify || defaultStringifyOptions
 

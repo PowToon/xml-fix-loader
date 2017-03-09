@@ -46,27 +46,24 @@ describe('xml-fix-loader', function () {
 
       webpack(config, function (err) {
         expect(err).to.be(null)
-        done()
-        // fs.readFile(defaultAssetListFile, function(err, fileListData){
-        //   fileListData = fileListData.toString()
-        //   var fileListLines = fileListData.split('\n')
-        //
-        //   expect(fileListLines.length).to.be(2)
-        //
-        //   fs.readFile(bundleFileSrc, function(err, bundleFileData){
-        //     bundleFileData = bundleFileData.toString()
-        //
-        //     fileListLines.forEach(function(line){
-        //
-        //       expect(line.indexOf('.png')).to.not.be(-1)
-        //
-        //       expect(bundleFileData.indexOf(line)).to.not.be(-1)
-        //
-        //     })
-        //
-        //     done()
-        //   })
-        // })
+
+        fs.readdir(outputDir, function(err, folder){
+          expect(err).to.be(null)
+
+          var svgs = folder.filter(function(fileName){
+            return /\.svg$/.test(fileName)
+          })
+
+          expect(svgs.length).to.be(1)
+
+          fs.readFile(path.join(outputDir, svgs[0]), function(err, file){
+            expect(err).to.be(null)
+
+            expect(/width="20px"/.test(file)).to.be(true)
+
+            done()
+          })
+        })
       })
     })
   })

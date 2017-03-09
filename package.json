@@ -4,13 +4,14 @@
   "description": "A webpack loader canonizing an xml",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PowToon/xml-fix-loader.git"
   },
   "keywords": [
+    "webpack",
     "svg",
     "xml",
     "canonizing",
@@ -19,7 +20,7 @@
     "unquote",
     "loader"
   ],
-  "author": "Powtoon (powtoon@powtoon.com)",
+  "author": "Powtoon (powtoon@powtoon.com), Vitalik Zaidman (vzaidman@gmail.com)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/PowToon/xml-fix-loader/issues"
