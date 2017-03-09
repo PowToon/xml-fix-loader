@@ -1,7 +1,7 @@
 {
   "name": "xml-fix-loader",
   "version": "0.0.1",
-  "description": "A webpack loader canonizing an xml",
+  "description": "A webpack loader canonizing xml files",
   "main": "index.js",
   "scripts": {
     "test": "mocha test"
