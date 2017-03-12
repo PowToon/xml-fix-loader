@@ -56,14 +56,11 @@ function identity(xmlObj){
 }
 
 var defaultParseOptions = {
-  tagNameProcessors: [identity],
-  attrNameProcessors: [identity],
-  valueProcessors: [identity],
-  attrValueProcessors: [identity],
   preserveChildrenOrder: true,
   trim: true,
   async: true,
-  strict: false
+  strict: false,
+  normalize: false
 }
 
 var defaultStringifyOptions = {}
