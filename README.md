@@ -55,13 +55,11 @@ function identity(xmlObj){
   return xmlObj
 }
 
-function toLowerCase(value){
-  return value && value.toLocaleLowerCase()
-}
-
 var defaultParseOptions = {
-  tagNameProcessors: [toLowerCase],
-  attrNameProcessors: [toLowerCase],
+  tagNameProcessors: [identity],
+  attrNameProcessors: [identity],
+  valueProcessors: [identity],
+  attrValueProcessors: [identity],
   preserveChildrenOrder: true,
   trim: true,
   async: true,
