@@ -10,11 +10,12 @@ function identity(xmlObj){
 }
 
 var defaultParseOptions = {
-  preserveChildrenOrder: true,
   trim: true,
   async: true,
   strict: false,
-  normalize: false
+  normalize: false,
+  explicitChildren: true,
+  preserveChildrenOrder: true
 }
 
 var defaultStringifyOptions = {}
@@ -26,6 +27,7 @@ module.exports = function(content) {
   var options = loaderUtils.getOptions(this) || {}
 
   var parseOptions = options.parse || defaultParseOptions
+  var preserveChildrenOrder = parseOptions.preserveChildrenOrder
   var stringifyOptions = options.stringify || defaultStringifyOptions
   var filterResource = options.filterResource || defaultFilter
   var filterContent = options.filterContent || defaultFilter
@@ -48,13 +50,64 @@ module.exports = function(content) {
       return
     }
 
-    var newXmlObj = changeXmlObj(xmlObj)
+    try{
+      var newXmlObj = changeXmlObj(xmlObj)
 
-    var builder = new xml2js.Builder(stringifyOptions)
-    var xml = builder.buildObject(newXmlObj)
+      if(preserveChildrenOrder){
+        newXmlObj = uniquifyXmlObj(newXmlObj, parseOptions)
+      }
 
-    callback(null, xml)
+      var builder = new xml2js.Builder(stringifyOptions)
+      var xml = builder.buildObject(newXmlObj)
+
+      if(preserveChildrenOrder){
+        xml = unUniquifyXml(xml)
+      }
+
+      callback(null, xml)
+    }
+    catch(err){
+      callback(err)
+    }
   })
 }
 
 module.exports.raw = false
+
+function uniquifyXmlObj(xmlObj, parseOptions){
+  var attrkey = parseOptions.attrkey || '$'
+  var charkey = parseOptions.charkey || '_'
+  var childkey = parseOptions.childkey || '$$'
+
+  function uniquify(obj){
+    const newXmlObj = {}
+
+    if(obj[attrkey]){
+      newXmlObj[attrkey] = obj[attrkey]
+    }
+
+    if(obj[charkey]){
+      newXmlObj[charkey] = obj[charkey]
+    }
+
+    if(obj[childkey]){
+      obj[childkey].forEach(function(child, key){
+        newXmlObj[key + '_' + child['#name']] = [uniquify(child)]
+      })
+    }
+
+    return newXmlObj
+  }
+
+  const rootName = Object.keys(xmlObj)[0]
+  const root = xmlObj[rootName]
+
+  const result = {}
+  result[rootName] = uniquify(root)
+
+  return result
+}
+
+function unUniquifyXml(content){
+  return content.replace(/(<\/?)\d*?_/ig, '$1')
+}
