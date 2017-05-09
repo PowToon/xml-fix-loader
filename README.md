@@ -20,7 +20,7 @@ The plugin uses [xml2js](https://www.npmjs.com/package/xml2js) to parse and stri
       loader: 'xml-fix-loader',
       options: {
       
-        //this will be pased to "xml2js.parseString(parse || defaultParseString)"
+        //this will be pased to "xml2js.parseString(parse || defaultParseOptions)"
         parse: defaultParseOptions,
         
         // this will be passed to "new xml2js.Builder(stringify || defaultStringifyOptions)"
@@ -44,7 +44,7 @@ The plugin uses [xml2js](https://www.npmjs.com/package/xml2js) to parse and stri
 }
 ```
 
-With the following settings:
+Where the arguments specified above are:
 
 ```
 function defaultFilter(){
@@ -56,11 +56,12 @@ function identity(xmlObj){
 }
 
 var defaultParseOptions = {
-  preserveChildrenOrder: true,
   trim: true,
   async: true,
   strict: false,
-  normalize: false
+  normalize: false,
+  explicitChildren: true,
+  preserveChildrenOrder: true
 }
 
 var defaultStringifyOptions = {}
